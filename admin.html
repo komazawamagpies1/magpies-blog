@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>【編集用】2026年度ブログリレー管理画面</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet" />
+  <style>
+    body { font-family: "Noto Sans JP", sans-serif; background-color: #F4F4F4; color: #1A1A1A; }
+  </style>
+</head>
+<body class="min-h-screen pb-24">
+
+  <!-- ヘッダー -->
+  <header class="sticky top-0 z-40 bg-[#56247C] text-white shadow">
+    <div class="max-w-3xl mx-auto px-4 py-3.5 flex items-center justify-between">
+      <div>
+        <div class="text-[10px] opacity-80 font-bold">KOMAZAWA UNIV. MAGPIES</div>
+        <h1 class="text-sm sm:text-base font-bold">卒部ブログ 編集用サイト</h1>
+      </div>
+      <a href="./index.html" target="_blank" class="px-3 py-1.5 rounded bg-white/15 hover:bg-white/25 text-xs font-bold">
+        公開ページを見る ↗
+      </a>
+    </div>
+  </header>
+
+  <main class="max-w-3xl mx-auto px-4 sm:px-6 pt-6 space-y-6">
+
+    <!-- 1. GitHub連携設定 -->
+    <section class="bg-white rounded-md border border-zinc-200 p-5 shadow-sm">
+      <div class="flex items-center justify-between mb-3">
+        <h2 class="text-sm font-bold text-zinc-900">1. 自動更新の接続設定（初回のみ）</h2>
+        <span id="connection-badge" class="text-[11px] font-bold px-2.5 py-0.5 rounded bg-zinc-100 text-zinc-600">未接続</span>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+        <div>
+          <label class="block font-bold text-zinc-700 mb-1">GitHubユーザー名</label>
+          <input type="text" id="gh-owner" placeholder="例: komazawamagpies1" class="w-full px-3 py-2 border border-zinc-300 rounded" />
+        </div>
+        <div>
+          <label class="block font-bold text-zinc-700 mb-1">リポジトリ名</label>
+          <input type="text" id="gh-repo" placeholder="例: magpies-blog" class="w-full px-3 py-2 border border-zinc-300 rounded" />
+        </div>
+        <div>
+          <label class="block font-bold text-zinc-700 mb-1">トークン（github_pat_...）</label>
+          <input type="password" id="gh-token" placeholder="github_pat_..." class="w-full px-3 py-2 border border-zinc-300 rounded" />
+        </div>
+      </div>
+      <div class="mt-3 flex justify-end">
+        <button id="save-settings-btn" type="button" class="px-4 py-2 rounded bg-zinc-800 hover:bg-zinc-950 text-white text-xs font-bold cursor-pointer">
+          設定を保存してデータを読み込む
+        </button>
+      </div>
+    </section>
+
+    <!-- 2. トップの集合写真設定 -->
+    <section class="bg-white rounded-md border border-zinc-200 p-5 shadow-sm">
+      <h2 class="text-sm font-bold text-zinc-900 mb-3">2. トップページの集合写真</h2>
+      <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+        <img id="hero-preview" src="" alt="集合写真プレビュー" class="hidden w-40 h-28 object-cover rounded border border-zinc-200" />
+        <label class="inline-flex items-center gap-2 px-4 py-2 rounded border border-zinc-300 bg-zinc-50 hover:bg-zinc-100 text-xs font-bold cursor-pointer">
+          <span>集合写真を選択・変更する</span>
+          <input type="file" id="hero-photo-input" accept="image/*" class="hidden" />
+        </label>
+      </div>
+    </section>
+
+    <!-- 3. 記事一覧＆編集・新規追加 -->
+    <section class="bg-white rounded-md border border-zinc-200 p-5 shadow-sm">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-sm font-bold text-zinc-900">3. 部員ブログ一覧（編集・追加）</h2>
+        <button id="new-article-btn" type="button" class="px-3.5 py-2 rounded bg-[#56247C] hover:bg-[#3E175C] text-white text-xs font-bold cursor-pointer">
+          ＋ 新しい部員を追加
+        </button>
+      </div>
+
+      <div id="article-list" class="space-y-3"></div>
+    </section>
+
+  </main>
+
+  <!-- 画面下部固定：公開URLへ自動反映ボタン -->
+  <div class="fixed bottom-0 inset-x-0 z-40 bg-white border-t border-zinc-200 p-3 shadow-[0_-2px_10px_rgba(0,0,0,0.06)]">
+    <div class="max-w-3xl mx-auto flex items-center justify-between gap-3">
+      <span id="status-text" class="text-xs font-medium text-zinc-600">編集後、右のボタンで公開ページに反映されます</span>
+      <button id="publish-btn" type="button" class="px-6 py-3 rounded bg-[#56247C] hover:bg-[#3E175C] text-white text-xs sm:text-sm font-bold shadow cursor-pointer flex-shrink-0">
+        公開URLに自動反映する
+      </button>
+    </div>
+  </div>
+
+  <!-- 記事編集・追加モーダル -->
+  <div id="edit-modal" class="hidden fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
+    <div class="bg-white w-full max-w-lg rounded-md shadow-xl overflow-hidden max-h-[90vh] flex flex-col">
+      <div class="bg-[#56247C] text-white px-5 py-3.5 flex items-center justify-between">
+        <h3 id="modal-title" class="font-bold text-sm">ブログの編集</h3>
+        <button id="close-modal-btn" type="button" class="text-white/80 hover:text-white text-xl leading-none cursor-pointer">&times;</button>
+      </div>
+      <form id="edit-form" class="p-5 space-y-4 text-xs sm:text-sm overflow-y-auto">
+        <input type="hidden" id="edit-index" value="-1" />
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-zinc-700 mb-1">公開日（例: 11/25）</label>
+            <input type="text" id="field-date" required placeholder="11/25" class="w-full px-3 py-2 border border-zinc-300 rounded" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-zinc-700 mb-1">部員の名前</label>
+            <input type="text" id="field-name" required placeholder="例：凜人" class="w-full px-3 py-2 border border-zinc-300 rounded" />
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-zinc-700 mb-1">ブログのタイトル</label>
+          <input type="text" id="field-title" required placeholder="例：結実" class="w-full px-3 py-2 border border-zinc-300 rounded" />
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-zinc-700 mb-1">個人写真（自動リサイズ最適化）</label>
+          <div class="flex items-center gap-3">
+            <img id="field-photo-preview" src="" alt="" class="hidden w-16 h-20 object-cover rounded border border-zinc-200" />
+            <label class="px-3 py-2 rounded border border-zinc-300 bg-zinc-50 hover:bg-zinc-100 text-xs font-bold cursor-pointer">
+              <span>写真を選択する</span>
+              <input type="file" id="field-photo-input" accept="image/*" class="hidden" />
+            </label>
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-zinc-700 mb-1">本文（空行で段落分けされます）</label>
+          <textarea id="field-body" rows="8" required class="w-full px-3 py-2 border border-zinc-300 rounded"></textarea>
+        </div>
+        <div class="flex justify-end gap-2 pt-2">
+          <button type="button" id="cancel-modal-btn" class="px-4 py-2 rounded border border-zinc-300 text-zinc-700 text-xs font-bold cursor-pointer">キャンセル</button>
+          <button type="submit" class="px-5 py-2 rounded bg-[#56247C] text-white text-xs font-bold cursor-pointer">一時保存する</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    let state = {
+      heroPhoto: "",
+      articles: [
+        {
+          id: "rinto",
+          date: "11/25",
+          name: "凜人",
+          title: "結実",
+          photo: "rinto.jpg",
+          body: `半ば強引に入部させられたオーストラリアンフットボール部は私の大学生活を最も彩る存在になった。OGの美月さんからのマグパイズへの誘いは断ったものの、OBであり、現在マグパイズのコーチであるこばそうさんからの誘いは断れなかった。
+1人では心細かったことを理由に拓海を誘い、練習に参加した。練習後、「俺、入るわ」と当たり前のように言い放った拓海を横目に私も流れで入部を決めた。そんな気持ちで入部したからか1年生の頃は目立った成績を残すことはできなかった。
+
+2年次が技術の成長度合いでいうのなら1番伸びたと実感している年である。常に念頭に置いていることだが、「どんなゴールでも入れば同じ」ということを最も重要視したスタイルだったと思う。ドロップパントやスナップキック、バナナキックはメルボルン遠征時にMitch Owens選手に教わったが、簡単に習得できるものではなかった。ゴールの形にこだわりはなかったが、キックの練習は地道に続けた。いくら練習しても虎のグングニル（彼のジャイロボールを我々はこう呼ぶ）は一向に治る気配はなかった。キックは下手だったが、貪欲にゴールを目指して量産できたのも、ボールを集め、支え続けてくれた部員のおかげだ。生意気な後輩のいうことを上手く部に循環させ、部を１つの塊として育てた先輩の凄さは４年生になった今改めて実感している。
+
+3年次には主将を務めたが、著しく組織体系は変化した。スポンサー様や部員、顧問の力も借りながら環境を整えた。振り返れば最も失敗を繰り返した年であり、周囲に負担をかけながらも挑戦し続けた１年だったと思う。A.league2位。これがこの年の結果だった。Grand finalは惜敗だったのか完敗だったのか、そんなことも未だわからない。ただ、みんなに精一杯助けてもらいながら切り拓いた茨の道は、今となっては私の誇りである。
+「結果を追い続けた結果、過程に意味があった」━━現在の私を形作る価値観の1つは、この年に形成された。何事も結果が出るまでは正解かはわからない。小さい目標でも大きい目標でもそれはきっと変わらない。「勇往邁進」個人的にはこの年の四字熟語はこれしかない。様々な戦術や決まり事を考えてみたものの、全てが上手くいくわけではなかった。結局、これらは人が実行するものであり、実行する意欲と魂がなければ意味がない。いざ私達よりはるかに体の大きい相手へタックルに行くのに必要なのは、何よりも闘志であると何度も学ばされた。試合中に怖がる余裕はないが、本場Aussieのタックルを受けるたびに思う。打ち所が悪ければ即病院送りだと。ついこの間、怜央は危うく病院に搬送されるところだった。4年間で何回も救急車が来ていたことを思い出す。そんな恐怖心を心の奥底に絶対に出てこないようにと何度も押し込んで、真っ向から挑み続けたこの年は勇往邁進がふさわしい。我がエンブレムの鳥であるカササギは脳の割合が高く、非常に賢い鳥らしい。カササギのように賢く戦う選択肢もあったのかもしれない。それでも、あの時の私たちには泥臭くぶつかり合うことが必要だった。
+
+この4年間で、私の武器は鋭利に尖り続けた。私の武器は皆に４年間手塩にかけて育ててもらった。意図を汲み取ってスペースを空けてくれる選手、スペースに絶妙なパスをくれる選手、バンプで道を空けてくれる選手。挙げたらきりがないが、仲間たちに渡された無数の研磨剤によって私は自分を磨き続けた。
+感謝しても感謝しきれない。
+仲間に環境に恵まれ、ここまで歩んできた。主将という大役を脱いだ今、私に出来ることは試合に勝つためにゴールを決めることだ。ゴールを決めた快感は何にも代えがたい。今年は誰よりもゴールに貪欲に、初ゴールを欲している１年生よりも貪欲に生きている。得点を渇望する姿勢が私を形作ってきた。ゴールを決めれば、玲音がサポーター顔負けの声で「凜人」と叫び続けてくれる。菜穂はマネージャー業務でゴールを一切見ていない。そんな光景を目に焼き付けて忘れないようにゴールを決める。
+
+最後にスポンサー様、顧問、先輩、同期、後輩、家族、保護者の皆様心より感謝申し上げます。皆様からご尽力いただき、マグパイズの一員としてかけがえのない時間を過ごすことができました。4年間ひたすらに楽しみ続けました。真冬のプールに裸で飛び込んだ日も、泥だらけの水溜まりにヘッドスライディングをした日も、吐きそうになりながら寿司大食い対決をした日も、みんなと過ごす日々が最高の思い出です。マグパイズがこれからも素晴らしいクラブであり続けられるよう、一人の応援団として応援し続けます。
+
+４年間ありがとうございました。`
+        }
+      ]
+    };
+
+    let currentModalPhoto = "";
+
+    function compressImage(file, maxWidth = 900) {
+      return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const img = new Image();
+          img.onload = () => {
+            let w = img.width, h = img.height;
+            if (w > maxWidth) {
+              h = Math.round((h * maxWidth) / w);
+              w = maxWidth;
+            }
+            const canvas = document.createElement("canvas");
+            canvas.width = w;
+            canvas.height = h;
+            canvas.getContext("2d").drawImage(img, 0, 0, w, h);
+            resolve(canvas.toDataURL("image/jpeg", 0.8));
+          };
+          img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function renderAdminList() {
+      const heroPrev = document.getElementById("hero-preview");
+      if (state.heroPhoto) {
+        heroPrev.src = state.heroPhoto;
+        heroPrev.classList.remove("hidden");
+      }
+
+      const list = document.getElementById("article-list");
+      list.innerHTML = "";
+      state.articles.forEach((item, idx) => {
+        const div = document.createElement("div");
+        div.className = "flex items-center justify-between gap-3 p-3 rounded border border-zinc-200 bg-zinc-50";
+        div.innerHTML = `
+          <div class="min-w-0">
+            <div class="text-xs text-zinc-500 font-bold">${item.date} / ${item.name}</div>
+            <div class="text-sm font-bold text-zinc-900 truncate">「${item.title}」</div>
+          </div>
+          <div class="flex items-center gap-2 flex-shrink-0">
+            <button type="button" class="edit-btn px-3 py-1.5 rounded bg-white border border-zinc-300 hover:bg-zinc-100 text-xs font-bold cursor-pointer">編集</button>
+            <button type="button" class="del-btn px-2.5 py-1.5 rounded bg-red-50 border border-red-200 hover:bg-red-100 text-red-700 text-xs font-bold cursor-pointer">削除</button>
+          </div>
+        `;
+        div.querySelector(".edit-btn").addEventListener("click", () => openModal(idx));
+        div.querySelector(".del-btn").addEventListener("click", () => {
+          if (confirm(`${item.name}さんの記事を削除しますか？`)) {
+            state.articles.splice(idx, 1);
+            renderAdminList();
+          }
+        });
+        list.appendChild(div);
+      });
+    }
+
+    function openModal(idx = -1) {
+      const modal = document.getElementById("edit-modal");
+      document.getElementById("edit-index").value = idx;
+      const preview = document.getElementById("field-photo-preview");
+
+      if (idx >= 0) {
+        const item = state.articles[idx];
+        document.getElementById("modal-title").textContent = `${item.name}さんのブログを編集`;
+        document.getElementById("field-date").value = item.date;
+        document.getElementById("field-name").value = item.name;
+        document.getElementById("field-title").value = item.title;
+        document.getElementById("field-body").value = item.body;
+        currentModalPhoto = item.photo || "";
+      } else {
+        document.getElementById("modal-title").textContent = "新しい部員のブログを追加";
+        document.getElementById("edit-form").reset();
+        currentModalPhoto = "";
+      }
+
+      if (currentModalPhoto) {
+        preview.src = currentModalPhoto;
+        preview.classList.remove("hidden");
+      } else {
+        preview.classList.add("hidden");
+      }
+      modal.classList.remove("hidden");
+    }
+
+    async function loadFromGitHub() {
+      const owner = document.getElementById("gh-owner").value.trim();
+      const repo = document.getElementById("gh-repo").value.trim();
+      const token = document.getElementById("gh-token").value.trim();
+      if (!owner || !repo || !token) return;
+
+      const badge = document.getElementById("connection-badge");
+      badge.textContent = "読み込み中...";
+
+      try {
+        const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/data.json`, {
+          headers: { Authorization: `Bearer ${token}`, Accept: "application/vnd.github+json" }
+        });
+        if (res.ok) {
+          const data = await res.json();
+          const decoded = JSON.parse(decodeURIComponent(escape(atob(data.content.replace(/\n/g, "")))));
+          if (decoded && Array.isArray(decoded.articles) && decoded.articles.length > 0) {
+            state = decoded;
+          }
+          badge.textContent = "接続済み";
+          badge.className = "text-[11px] font-bold px-2.5 py-0.5 rounded bg-emerald-100 text-emerald-800";
+          renderAdminList();
+        } else {
+          badge.textContent = "接続エラー";
+          badge.className = "text-[11px] font-bold px-2.5 py-0.5 rounded bg-red-100 text-red-800";
+        }
+      } catch (e) {
+        badge.textContent = "接続エラー";
+        badge.className = "text-[11px] font-bold px-2.5 py-0.5 rounded bg-red-100 text-red-800";
+      }
+    }
+
+    async function publishToGitHub() {
+      const owner = document.getElementById("gh-owner").value.trim();
+      const repo = document.getElementById("gh-repo").value.trim();
+      const token = document.getElementById("gh-token").value.trim();
+
+      if (!owner || !repo || !token) {
+        alert("先に「1. 自動更新の接続設定」を入力して保存してください。");
+        return;
+      }
+
+      const btn = document.getElementById("publish-btn");
+      const status = document.getElementById("status-text");
+      btn.disabled = true;
+      btn.textContent = "反映中...";
+      status.textContent = "公開ページへデータを送信しています...";
+
+      try {
+        const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/data.json`;
+        let sha = null;
+        const getRes = await fetch(apiUrl, {
+          headers: { Authorization: `Bearer ${token}`, Accept: "application/vnd.github+json" }
+        });
+        if (getRes.ok) {
+          const fileInfo = await getRes.json();
+          sha = fileInfo.sha;
+        }
+
+        const jsonStr = JSON.stringify(state, null, 2);
+        const base64Content = btoa(unescape(encodeURIComponent(jsonStr)));
+
+        const putRes = await fetch(apiUrl, {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: "application/vnd.github+json",
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            message: "Update blog relay content",
+            content: base64Content,
+            ...(sha ? { sha } : {})
+          })
+        });
+
+        if (!putRes.ok) throw new Error("更新に失敗しました");
+
+        status.textContent = "完了！約30秒後に公開URLへ自動反映されます。";
+        alert("公開URLへの反映が完了しました！（反映まで約30秒かかります）");
+      } catch (err) {
+        status.textContent = "エラー：トークンやリポジトリ名を確認してください。";
+        alert("反映に失敗しました。GitHubのユーザー名・リポジトリ名・トークンを確認してください。");
+      } finally {
+        btn.disabled = false;
+        btn.textContent = "公開URLに自動反映する";
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const saved = JSON.parse(localStorage.getItem("magpies_gh_config") || "{}");
+      const hostMatch = location.hostname.match(/^([^.]+)\.github\.io$/);
+      const pathMatch = location.pathname.split("/").filter(Boolean)[0];
+
+      document.getElementById("gh-owner").value = saved.owner || (hostMatch ? hostMatch[1] : "");
+      document.getElementById("gh-repo").value = saved.repo || pathMatch || "";
+      document.getElementById("gh-token").value = saved.token || "";
+
+      renderAdminList();
+      if (saved.token) loadFromGitHub();
+
+      document.getElementById("save-settings-btn").addEventListener("click", () => {
+        const cfg = {
+          owner: document.getElementById("gh-owner").value.trim(),
+          repo: document.getElementById("gh-repo").value.trim(),
+          token: document.getElementById("gh-token").value.trim()
+        };
+        localStorage.setItem("magpies_gh_config", JSON.stringify(cfg));
+        loadFromGitHub();
+      });
+
+      document.getElementById("hero-photo-input").addEventListener("change", async (e) => {
+        const file = e.target.files && e.target.files[0];
+        if (!file) return;
+        state.heroPhoto = await compressImage(file, 1100);
+        renderAdminList();
+      });
+
+      document.getElementById("field-photo-input").addEventListener("change", async (e) => {
+        const file = e.target.files && e.target.files[0];
+        if (!file) return;
+        currentModalPhoto = await compressImage(file, 700);
+        const preview = document.getElementById("field-photo-preview");
+        preview.src = currentModalPhoto;
+        preview.classList.remove("hidden");
+      });
+
+      document.getElementById("new-article-btn").addEventListener("click", () => openModal(-1));
+      document.getElementById("close-modal-btn").addEventListener("click", () => document.getElementById("edit-modal").classList.add("hidden"));
+      document.getElementById("cancel-modal-btn").addEventListener("click", () => document.getElementById("edit-modal").classList.add("hidden"));
+
+      document.getElementById("edit-form").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const idx = Number(document.getElementById("edit-index").value);
+        const entry = {
+          id: idx >= 0 ? state.articles[idx].id : `member-${Date.now()}`,
+          date: document.getElementById("field-date").value.trim(),
+          name: document.getElementById("field-name").value.trim(),
+          title: document.getElementById("field-title").value.trim(),
+          photo: currentModalPhoto,
+          body: document.getElementById("field-body").value.trim()
+        };
+        if (idx >= 0) state.articles[idx] = entry;
+        else state.articles.push(entry);
+
+        document.getElementById("edit-modal").classList.add("hidden");
+        renderAdminList();
+      });
+
+      document.getElementById("publish-btn").addEventListener("click", publishToGitHub);
+    });
+  </script>
+</body>
+</html>

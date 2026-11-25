@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2026年度ブログリレー | KOMAZAWA UNIV. MAGPIES</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Oswald:wght@600;700&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Noto Sans JP"', 'sans-serif'],
+            display: ['"Oswald"', '"Noto Sans JP"', 'sans-serif'],
+          },
+          colors: {
+            collegiate: {
+              purple: '#56247C',
+              purpleDark: '#3E175C',
+              purpleLight: '#F6F0FA',
+              slateBadge: '#6F687A',
+            }
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body { font-family: "Noto Sans JP", -apple-system, BlinkMacSystemFont, sans-serif; color: #1A1A1A; background-color: #F4F4F4; -webkit-font-smoothing: antialiased; }
+    .blog-prose p { font-size: 13.5px; line-height: 1.9; letter-spacing: 0.02em; margin-bottom: 1.35rem; color: #222222; word-break: break-word; }
+    @media (min-width: 640px) { .blog-prose p { font-size: 14.5px; line-height: 1.95; } }
+    .portrait-float { float: left; width: 42%; max-width: 190px; margin-right: 1.15rem; margin-bottom: 0.65rem; margin-top: 0.25rem; }
+    @media (min-width: 640px) { .portrait-float { width: 210px; max-width: 210px; margin-right: 1.5rem; margin-bottom: 0.85rem; } }
+    .collegiate-rule { border: 0; height: 2px; background-color: #111111; }
+    .relay-table th, .relay-table td { border: 1px solid #E5E7EB; padding: 0.75rem 0.5rem; font-size: 12.5px; line-height: 1.45; }
+    @media (min-width: 640px) { .relay-table th, .relay-table td { padding: 0.85rem 0.75rem; font-size: 13.5px; } }
+    .relay-table th { background-color: #FAFAFA; font-weight: 700; color: #111111; text-align: center; }
+    .clearfix::after { content: ""; display: table; clear: both; }
+    .view-fade { animation: fadeIn 0.22s ease-out; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <!-- トップヘッダー -->
+  <header id="page-top" class="sticky top-0 z-40 bg-white border-b border-zinc-200 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+    <div class="max-w-3xl mx-auto flex items-center justify-between h-16 sm:h-20 px-4 sm:px-6">
+      <a href="#" id="header-home-link" class="flex items-center gap-3 group">
+        <div class="w-12 h-13 sm:w-14 sm:h-15 flex-shrink-0 flex items-center justify-center">
+          <svg viewBox="0 0 220 230" class="w-full h-full drop-shadow-[0_1px_1px_rgba(0,0,0,0.08)]" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <clipPath id="magpies-shield-inner">
+                <path d="M44 16 H176 V108 C176 162 110 206 110 206 C110 206 44 162 44 108 Z" />
+              </clipPath>
+            </defs>
+            <path d="M39 11 H181 V109 C181 167 110 213 110 213 C110 213 39 167 39 109 Z" fill="#FFFFFF" stroke="#111111" stroke-width="2.2" />
+            <g clip-path="url(#magpies-shield-inner)">
+              <rect x="44" y="16" width="132" height="192" fill="#FFFFFF" />
+              <rect x="56" y="16" width="12" height="192" fill="#0B0B0B" />
+              <rect x="80" y="16" width="12" height="192" fill="#0B0B0B" />
+              <rect x="104" y="16" width="12" height="192" fill="#0B0B0B" />
+              <rect x="128" y="16" width="12" height="192" fill="#0B0B0B" />
+              <rect x="152" y="16" width="12" height="192" fill="#0B0B0B" />
+              <g font-family="'Times New Roman', Georgia, serif" font-size="16.5" font-weight="500" text-anchor="middle">
+                <text x="50" y="38" stroke="#0B0B0B" stroke-width="2.2" paint-order="stroke fill" fill="#FFFFFF">K</text>
+                <text x="62" y="38" fill="#FFFFFF">O</text>
+                <text x="74" y="38" stroke="#0B0B0B" stroke-width="2.2" paint-order="stroke fill" fill="#FFFFFF">M</text>
+                <text x="86" y="38" fill="#FFFFFF">A</text>
+                <text x="98" y="38" stroke="#0B0B0B" stroke-width="2.2" paint-order="stroke fill" fill="#FFFFFF">Z</text>
+                <text x="110" y="38" fill="#FFFFFF">A</text>
+                <text x="122" y="38" stroke="#0B0B0B" stroke-width="2.2" paint-order="stroke fill" fill="#FFFFFF">W</text>
+                <text x="134" y="38" fill="#FFFFFF">A</text>
+              </g>
+              <polygon points="110,46 154,90 110,134 66,90" fill="#FFFFFF" stroke="#111111" stroke-width="1.8" />
+              <g transform="translate(113, 123)">
+                <ellipse cx="0" cy="0" rx="25" ry="12.5" fill="#8E3820" stroke="#111111" stroke-width="1.8" />
+                <path d="M-23 -1.2 Q0 2.2 23 -1.2" fill="none" stroke="#111111" stroke-width="1.3" />
+                <line x1="-5" y1="-3.5" x2="-5" y2="4" stroke="#111111" stroke-width="1.6" />
+                <line x1="0" y1="-3.5" x2="0" y2="4" stroke="#111111" stroke-width="1.6" />
+                <line x1="5" y1="-3.5" x2="5" y2="4" stroke="#111111" stroke-width="1.6" />
+              </g>
+              <g>
+                <path d="M107 102 L106 113 M102 114 L109 114" stroke="#111111" stroke-width="2.1" stroke-linecap="round" />
+                <path d="M118 102 L119 113 M116 114 L123 114" stroke="#111111" stroke-width="2.1" stroke-linecap="round" />
+                <path d="M106 51 C116 49 125 56 127 69 C128 81 122 93 112 100 L84 107 L80 102 L99 92 C99 80 98 65 102 57 Z" fill="#221916" stroke="#111111" stroke-width="1.3" />
+                <polygon points="103,52 91,53.8 103,57" fill="#A6A6A6" stroke="#111111" stroke-width="1.1" />
+                <circle cx="108" cy="54.5" r="1.7" fill="#FFFFFF" />
+                <path d="M121 62 Q124 66 124 72" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" />
+                <path d="M107 69 L118 67 L113 86 L101 89 Z" fill="#FFFFFF" />
+                <line x1="109" y1="76" x2="104" y2="87" stroke="#221916" stroke-width="1.3" />
+                <line x1="114" y1="75" x2="109" y2="86" stroke="#221916" stroke-width="1.3" />
+              </g>
+            </g>
+            <path d="M44 16 H176 V108 C176 162 110 206 110 206 C110 206 44 162 44 108 Z" fill="none" stroke="#111111" stroke-width="1.8" />
+            <g>
+              <polygon points="10,120 42,128 42,150 10,142 21,131" fill="#4E1C73" stroke="#361252" stroke-width="1.3" />
+              <polygon points="210,120 178,128 178,150 210,142 199,131" fill="#4E1C73" stroke="#361252" stroke-width="1.3" />
+              <polygon points="32,148 42,150 42,155" fill="#2A0D42" />
+              <polygon points="188,148 178,150 178,155" fill="#2A0D42" />
+              <path d="M32 124 Q110 147 188 124 L184 153 Q110 175 36 153 Z" fill="#582182" stroke="#361252" stroke-width="1.5" />
+              <g font-family="'Times New Roman', Georgia, serif" font-size="20.5" font-weight="500" fill="#FFFFFF" text-anchor="middle">
+                <text x="58" y="147" transform="rotate(11 58 147)">M</text>
+                <text x="77" y="151.5" transform="rotate(6 77 151.5)">A</text>
+                <text x="93" y="154.5" transform="rotate(2 93 154.5)">G</text>
+                <text x="110" y="155.5">P</text>
+                <text x="123" y="155" transform="rotate(-2 123 155)">I</text>
+                <text x="138" y="153" transform="rotate(-5 138 153)">E</text>
+                <text x="155" y="149.5" transform="rotate(-10 155 149.5)">S</text>
+              </g>
+            </g>
+          </svg>
+        </div>
+        <div class="leading-tight">
+          <div class="text-[10px] sm:text-xs font-bold text-zinc-600 tracking-wider">駒澤大学オーストラリアンフットボール部</div>
+          <div class="font-display text-base sm:text-xl font-bold text-zinc-950 tracking-wide uppercase group-hover:text-collegiate-purple transition-colors">KOMAZAWA UNIV. MAGPIES</div>
+        </div>
+      </a>
+
+      <button id="header-back-btn" type="button" class="hidden items-center gap-1 px-3 py-1.5 rounded-sm border border-collegiate-purple text-collegiate-purple hover:bg-collegiate-purple hover:text-white text-xs font-bold transition-colors cursor-pointer">
+        <span>← 一覧へ</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="flex-1 w-full max-w-3xl mx-auto bg-white shadow-[0_0_20px_rgba(0,0,0,0.03)] px-5 sm:px-10 pt-8 pb-20">
+    <!-- VIEW 1: トップ目次画面 -->
+    <section id="index-view" class="view-fade">
+      <hr class="collegiate-rule mb-5" />
+      <div class="flex items-center gap-3 mb-3">
+        <time datetime="2026-11-25" class="text-sm sm:text-base font-medium text-zinc-800 tracking-wide">2026.11.25</time>
+        <span class="inline-block bg-collegiate-purple text-white text-xs font-bold px-3.5 py-0.5 rounded-sm tracking-wider">特集</span>
+      </div>
+      <h1 class="text-lg sm:text-xl font-bold text-zinc-950 leading-snug tracking-tight mb-4">2026年度ブログリレー〜4年生の想い〜</h1>
+      <hr class="collegiate-rule mb-7" />
+
+      <!-- 集合写真 -->
+      <div class="mb-7">
+        <div class="overflow-hidden rounded-sm border border-zinc-200 bg-zinc-100">
+          <div id="team-hero-placeholder" class="aspect-[4/3] sm:aspect-[16/10] w-full bg-gradient-to-br from-zinc-900 via-[#221133] to-black text-white flex flex-col items-center justify-center p-6 text-center relative overflow-hidden">
+            <div class="absolute inset-4 border border-white/15 rounded-sm pointer-events-none"></div>
+            <p class="font-display text-sm sm:text-base tracking-widest uppercase text-purple-200 mb-1">KOMAZAWA MAGPIES 4TH GRADE</p>
+            <p class="text-xs text-zinc-300">2026 SEASON RETIREMENT BLOG RELAY</p>
+          </div>
+          <img id="team-hero-img" src="" alt="駒澤大学マグパイズ 4年生集合写真" class="hidden w-full h-auto object-cover" />
+        </div>
+      </div>
+
+      <div class="text-[13.5px] sm:text-sm leading-[1.85] text-zinc-800 space-y-3 mb-8">
+        <p>2026年11月より、4年生によるブログリレーを行います。</p>
+        <p>4年間の想いが詰まった熱いブログを是非ご覧ください。</p>
+      </div>
+
+      <!-- 目次テーブル -->
+      <div class="overflow-x-auto">
+        <table class="w-full border-collapse relay-table">
+          <thead>
+            <tr>
+              <th class="w-[22%]">日付</th>
+              <th class="w-[33%]">名前</th>
+              <th class="w-[45%]">タイトル<span class="block sm:inline text-[11px] font-normal text-zinc-500">（タップで記事を開く）</span></th>
+            </tr>
+          </thead>
+          <tbody id="relay-table-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- VIEW 2: 個別記事詳細画面 -->
+    <section id="article-view" class="hidden view-fade">
+      <article>
+        <hr class="collegiate-rule mb-5" />
+        <div class="flex items-center gap-3 mb-3">
+          <time id="detail-date" class="text-sm sm:text-base font-medium text-zinc-800 tracking-wide">2026.11.25</time>
+          <span class="inline-block bg-collegiate-slateBadge text-white text-xs font-bold px-3.5 py-0.5 rounded-sm tracking-wider">引退ブログ</span>
+        </div>
+        <h2 id="detail-title" class="text-lg sm:text-xl font-bold text-zinc-950 leading-snug tracking-tight mb-4"></h2>
+        <hr class="collegiate-rule mb-7" />
+
+        <div class="blog-prose clearfix">
+          <div id="detail-photo-wrapper" class="portrait-float">
+            <div class="overflow-hidden rounded-sm border border-zinc-200 bg-zinc-100">
+              <img id="detail-photo" src="" alt="個人写真" class="w-full aspect-[3/4] object-cover object-center" />
+            </div>
+          </div>
+          <div id="detail-body"></div>
+        </div>
+      </article>
+
+      <hr class="collegiate-rule mt-12 mb-8" />
+
+      <div class="space-y-4">
+        <div class="grid grid-cols-2 gap-3">
+          <button id="prev-article-btn" type="button" class="px-3 py-2.5 rounded-sm border border-zinc-300 bg-zinc-50 hover:bg-zinc-100 text-zinc-800 text-xs font-bold text-left truncate disabled:opacity-30 disabled:pointer-events-none cursor-pointer">← 前の記事</button>
+          <button id="next-article-btn" type="button" class="px-3 py-2.5 rounded-sm border border-zinc-300 bg-zinc-50 hover:bg-zinc-100 text-zinc-800 text-xs font-bold text-right truncate disabled:opacity-30 disabled:pointer-events-none cursor-pointer">次の記事 →</button>
+        </div>
+        <div class="flex justify-center pt-2">
+          <button id="bottom-back-btn" type="button" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3 rounded-sm bg-collegiate-purple hover:bg-collegiate-purpleDark text-white text-xs sm:text-sm font-bold shadow-sm transition-colors cursor-pointer">
+            <span>ブログリレー目次（一覧）へ戻る</span>
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="max-w-3xl w-full mx-auto py-6 px-5 text-center text-[11px] text-zinc-500">
+    &copy; 2026 KOMAZAWA UNIV. MAGPIES. All Rights Reserved.
+  </footer>
+
+  <script>
+    const INITIAL_DATA = {
+      heroPhoto: "",
+      articles: [
+        {
+          id: "rinto",
+          date: "11/25",
+          name: "凜人",
+          title: "結実",
+          photo: "rinto.jpg",
+          body: `半ば強引に入部させられたオーストラリアンフットボール部は私の大学生活を最も彩る存在になった。OGの美月さんからのマグパイズへの誘いは断ったものの、OBであり、現在マグパイズのコーチであるこばそうさんからの誘いは断れなかった。
+1人では心細かったことを理由に拓海を誘い、練習に参加した。練習後、「俺、入るわ」と当たり前のように言い放った拓海を横目に私も流れで入部を決めた。そんな気持ちで入部したからか1年生の頃は目立った成績を残すことはできなかった。
+
+2年次が技術の成長度合いでいうのなら1番伸びたと実感している年である。常に念頭に置いていることだが、「どんなゴールでも入れば同じ」ということを最も重要視したスタイルだったと思う。ドロップパントやスナップキック、バナナキックはメルボルン遠征時にMitch Owens選手に教わったが、簡単に習得できるものではなかった。ゴールの形にこだわりはなかったが、キックの練習は地道に続けた。いくら練習しても虎のグングニル（彼のジャイロボールを我々はこう呼ぶ）は一向に治る気配はなかった。キックは下手だったが、貪欲にゴールを目指して量産できたのも、ボールを集め、支え続けてくれた部員のおかげだ。生意気な後輩のいうことを上手く部に循環させ、部を１つの塊として育てた先輩の凄さは４年生になった今改めて実感している。
+
+3年次には主将を務めたが、著しく組織体系は変化した。スポンサー様や部員、顧問の力も借りながら環境を整えた。振り返れば最も失敗を繰り返した年であり、周囲に負担をかけながらも挑戦し続けた１年だったと思う。A.league2位。これがこの年の結果だった。Grand finalは惜敗だったのか完敗だったのか、そんなことも未だわからない。ただ、みんなに精一杯助けてもらいながら切り拓いた茨の道は、今となっては私の誇りである。
+「結果を追い続けた結果、過程に意味があった」━━現在の私を形作る価値観の1つは、この年に形成された。何事も結果が出るまでは正解かはわからない。小さい目標でも大きい目標でもそれはきっと変わらない。「勇往邁進」個人的にはこの年の四字熟語はこれしかない。様々な戦術や決まり事を考えてみたものの、全てが上手くいくわけではなかった。結局、これらは人が実行するものであり、実行する意欲と魂がなければ意味がない。いざ私達よりはるかに体の大きい相手へタックルに行くのに必要なのは、何よりも闘志であると何度も学ばされた。試合中に怖がる余裕はないが、本場Aussieのタックルを受けるたびに思う。打ち所が悪ければ即病院送りだと。ついこの間、怜央は危うく病院に搬送されるところだった。4年間で何回も救急車が来ていたことを思い出す。そんな恐怖心を心の奥底に絶対に出てこないようにと何度も押し込んで、真っ向から挑み続けたこの年は勇往邁進がふさわしい。我がエンブレムの鳥であるカササギは脳の割合が高く、非常に賢い鳥らしい。カササギのように賢く戦う選択肢もあったのかもしれない。それでも、あの時の私たちには泥臭くぶつかり合うことが必要だった。
+
+この4年間で、私の武器は鋭利に尖り続けた。私の武器は皆に４年間手塩にかけて育ててもらった。意図を汲み取ってスペースを空けてくれる選手、スペースに絶妙なパスをくれる選手、バンプで道を空けてくれる選手。挙げたらきりがないが、仲間たちに渡された無数の研磨剤によって私は自分を磨き続けた。
+感謝しても感謝しきれない。
+仲間に環境に恵まれ、ここまで歩んできた。主将という大役を脱いだ今、私に出来ることは試合に勝つためにゴールを決めることだ。ゴールを決めた快感は何にも代えがたい。今年は誰よりもゴールに貪欲に、初ゴールを欲している１年生よりも貪欲に生きている。得点を渇望する姿勢が私を形作ってきた。ゴールを決めれば、玲音がサポーター顔負けの声で「凜人」と叫び続けてくれる。菜穂はマネージャー業務でゴールを一切見ていない。そんな光景を目に焼き付けて忘れないようにゴールを決める。
+
+最後にスポンサー様、顧問、先輩、同期、後輩、家族、保護者の皆様心より感謝申し上げます。皆様からご尽力いただき、マグパイズの一員としてかけがえのない時間を過ごすことができました。4年間ひたすらに楽しみ続けました。真冬のプールに裸で飛び込んだ日も、泥だらけの水溜まりにヘッドスライディングをした日も、吐きそうになりながら寿司大食い対決をした日も、みんなと過ごす日々が最高の思い出です。マグパイズがこれからも素晴らしいクラブであり続けられるよう、一人の応援団として応援し続けます。
+
+４年間ありがとうございました。`
+        }
+      ]
+    };
+
+    let blogState = INITIAL_DATA;
+
+    function formatFullDate(dateStr) {
+      const s = String(dateStr || "").trim();
+      if (!s) return "2026.11.25";
+      return s.includes("2026") ? s.replace(/\//g, ".") : `2026.${s.replace(/\//g, ".")}`;
+    }
+
+    function escapeHtml(str) {
+      return String(str || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+    }
+
+    function renderAll() {
+      const heroImg = document.getElementById("team-hero-img");
+      const heroPh = document.getElementById("team-hero-placeholder");
+      if (blogState.heroPhoto) {
+        heroImg.src = blogState.heroPhoto;
+        heroImg.classList.remove("hidden");
+        heroPh.classList.add("hidden");
+      }
+
+      const tbody = document.getElementById("relay-table-body");
+      tbody.innerHTML = "";
+      blogState.articles.forEach((item, index) => {
+        const id = item.id || `member-${index + 1}`;
+        item.id = id;
+        const tr = document.createElement("tr");
+        tr.className = "hover:bg-collegiate-purpleLight/70 active:bg-collegiate-purpleLight transition-colors cursor-pointer";
+        tr.innerHTML = `
+          <td class="text-center font-medium text-zinc-700">${escapeHtml(item.date)}</td>
+          <td class="text-center font-bold text-zinc-900">${escapeHtml(item.name)}</td>
+          <td class="text-center">
+            <a href="#${encodeURIComponent(id)}" class="text-collegiate-purple underline underline-offset-4 decoration-collegiate-purple/60 font-bold">${escapeHtml(item.title)}</a>
+          </td>
+        `;
+        tr.addEventListener("click", (e) => {
+          e.preventDefault();
+          location.hash = encodeURIComponent(id);
+        });
+        tbody.appendChild(tr);
+      });
+
+      handleRoute();
+    }
+
+    function showArticle(id) {
+      const idx = blogState.articles.findIndex((a) => a.id === id);
+      if (idx === -1) {
+        showIndex();
+        return;
+      }
+      const item = blogState.articles[idx];
+      document.getElementById("detail-date").textContent = formatFullDate(item.date);
+      document.getElementById("detail-title").textContent = `「${item.title}」（${item.name}）`;
+
+      const photoWrapper = document.getElementById("detail-photo-wrapper");
+      const photoImg = document.getElementById("detail-photo");
+      if (item.photo) {
+        photoWrapper.classList.remove("hidden");
+        photoImg.src = item.photo;
+        photoImg.onerror = () => photoWrapper.classList.add("hidden");
+      } else {
+        photoWrapper.classList.add("hidden");
+      }
+
+      const bodyContainer = document.getElementById("detail-body");
+      bodyContainer.innerHTML = "";
+      const paragraphs = String(item.body || "").trim().split(/\n\s*\n/);
+      paragraphs.forEach((para, pIdx) => {
+        const p = document.createElement("p");
+        if (pIdx === paragraphs.length - 1 && para.length < 30) p.className = "!mt-8 !mb-2 font-bold text-zinc-950";
+        para.split("\n").forEach((line, lIdx) => {
+          if (lIdx > 0) p.appendChild(document.createElement("br"));
+          p.appendChild(document.createTextNode(line));
+        });
+        bodyContainer.appendChild(p);
+      });
+
+      const prevBtn = document.getElementById("prev-article-btn");
+      const nextBtn = document.getElementById("next-article-btn");
+      if (idx > 0) {
+        const prev = blogState.articles[idx - 1];
+        prevBtn.disabled = false;
+        prevBtn.textContent = `← ${prev.name}「${prev.title}」`;
+        prevBtn.onclick = () => { location.hash = encodeURIComponent(prev.id); };
+      } else {
+        prevBtn.disabled = true;
+        prevBtn.textContent = "← 最初の記事です";
+      }
+      if (idx < blogState.articles.length - 1) {
+        const next = blogState.articles[idx + 1];
+        nextBtn.disabled = false;
+        nextBtn.textContent = `${next.name}「${next.title}」 →`;
+        nextBtn.onclick = () => { location.hash = encodeURIComponent(next.id); };
+      } else {
+        nextBtn.disabled = true;
+        nextBtn.textContent = "最新の記事です →";
+      }
+
+      document.getElementById("index-view").classList.add("hidden");
+      document.getElementById("article-view").classList.remove("hidden");
+      const headerBack = document.getElementById("header-back-btn");
+      headerBack.classList.remove("hidden");
+      headerBack.classList.add("inline-flex");
+      document.title = `「${item.title}」（${item.name}） | KOMAZAWA UNIV. MAGPIES`;
+      window.scrollTo({ top: 0, behavior: "instant" });
+    }
+
+    function showIndex() {
+      document.getElementById("article-view").classList.add("hidden");
+      document.getElementById("index-view").classList.remove("hidden");
+      const headerBack = document.getElementById("header-back-btn");
+      headerBack.classList.add("hidden");
+      headerBack.classList.remove("inline-flex");
+      document.title = "2026年度ブログリレー | KOMAZAWA UNIV. MAGPIES";
+      window.scrollTo({ top: 0, behavior: "instant" });
+    }
+
+    function handleRoute() {
+      const hash = decodeURIComponent(location.hash.replace(/^#/, ""));
+      if (hash && hash !== "page-top") showArticle(hash);
+      else showIndex();
+    }
+
+    document.addEventListener("DOMContentLoaded", async () => {
+      const goHome = (e) => {
+        e.preventDefault();
+        history.pushState("", document.title, window.location.pathname + window.location.search);
+        showIndex();
+      };
+      document.getElementById("header-home-link").addEventListener("click", goHome);
+      document.getElementById("header-back-btn").addEventListener("click", goHome);
+      document.getElementById("bottom-back-btn").addEventListener("click", goHome);
+      window.addEventListener("hashchange", handleRoute);
+
+      renderAll();
+      try {
+        const res = await fetch(`./data.json?t=${Date.now()}`);
+        if (res.ok) {
+          const json = await res.json();
+          if (json && Array.isArray(json.articles) && json.articles.length > 0) {
+            blogState = json;
+            renderAll();
+          }
+        }
+      } catch (e) {}
+    });
+  </script>
+</body>
+</html>
