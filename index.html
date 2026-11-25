@@ -45,7 +45,6 @@
 </head>
 <body class="min-h-screen flex flex-col">
 
-  <!-- トップヘッダー -->
   <header id="page-top" class="sticky top-0 z-40 bg-white border-b border-zinc-200 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
     <div class="max-w-3xl mx-auto flex items-center justify-between h-16 sm:h-20 px-4 sm:px-6">
       <a href="#" id="header-home-link" class="flex items-center gap-3 group">
@@ -126,7 +125,6 @@
   </header>
 
   <main class="flex-1 w-full max-w-3xl mx-auto bg-white shadow-[0_0_20px_rgba(0,0,0,0.03)] px-5 sm:px-10 pt-8 pb-20">
-    <!-- VIEW 1: トップ目次画面 -->
     <section id="index-view" class="view-fade">
       <hr class="collegiate-rule mb-5" />
       <div class="flex items-center gap-3 mb-3">
@@ -136,7 +134,6 @@
       <h1 class="text-lg sm:text-xl font-bold text-zinc-950 leading-snug tracking-tight mb-4">2026年度ブログリレー〜4年生の想い〜</h1>
       <hr class="collegiate-rule mb-7" />
 
-      <!-- 集合写真 -->
       <div class="mb-7">
         <div class="overflow-hidden rounded-sm border border-zinc-200 bg-zinc-100">
           <div id="team-hero-placeholder" class="aspect-[4/3] sm:aspect-[16/10] w-full bg-gradient-to-br from-zinc-900 via-[#221133] to-black text-white flex flex-col items-center justify-center p-6 text-center relative overflow-hidden">
@@ -153,7 +150,6 @@
         <p>4年間の想いが詰まった熱いブログを是非ご覧ください。</p>
       </div>
 
-      <!-- 目次テーブル -->
       <div class="overflow-x-auto">
         <table class="w-full border-collapse relay-table">
           <thead>
@@ -168,7 +164,6 @@
       </div>
     </section>
 
-    <!-- VIEW 2: 個別記事詳細画面 -->
     <section id="article-view" class="hidden view-fade">
       <article>
         <hr class="collegiate-rule mb-5" />
@@ -210,10 +205,7 @@
   </footer>
 
   <script>
-    let blogState = {
-      heroPhoto: "",
-      articles: []
-    };
+    let blogState = { heroPhoto: "", articles: [] };
 
     function formatFullDate(dateStr) {
       const s = String(dateStr || "").trim();
